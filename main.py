@@ -14,11 +14,11 @@ class student:
         self.emplID = emplID
         self.Prog = Prog
 class course: 
-    def __init__(self, courseCode, name, passRate, stdno):
+    def __init__(self, courseCode, passRate, stdno, year):
         self.courseCode = courseCode
-        self.name = name
         self.passRate = passRate
         self.stdno = stdno
+        self.year = year
 
 #Creating the arrays the hold the student objects and the course objects
 stdarr = []
@@ -152,7 +152,7 @@ with open(file_path, mode ='r') as file:
                     std = student(stdno,name,surname,sex,emplID,prog)
                     stdarr.append(std)
                 elif (l > 3):
-                    for c1 in range (0,5):
+                    for c1 in range (0,10):
                         ns = x[c1]
                         ns1 = x[1]
                         #print(ns1)
@@ -175,31 +175,21 @@ with open(file_path, mode ='r') as file:
                                     ind += 1
                             except:
                                 l = l
-                        if (c1 == 1 and read == 1 and len(ns1) == 11):
-                            nsp = x[0] 
+                        if (read == 1 and len(ns) == 11):
+                            nsp = x[0]
                             if (nsp == '[""'):
                                 courseC = ""
                                 for nc in range (2, len(ns)-1):
                                     courseC = courseC + ns[nc]
                                     print(ns[nc],end="")
                                 print(",",end="")
-                        if (c1 == 2 and read == 1 and len(ns1) == 11):
-                            nsp = x[0] 
-                            if (nsp == '[""'):
+                                ns = x[c1+1]
                                 mark = ""
                                 for nc in range (2, len(ns)-1):
                                     mark = mark + ns[nc]
                                     print(ns[nc],end="")
                                 print(",",end="")
-                        if (c1 == 9 and read == 1 and len(ns1) == 11):
-                            nsp = x[0]
-                            if (nsp == '[""'):
-                                courseC2 = ""
-                                for nc in range (1, len(ns[1])-1):
-                                    courseC2 = courseC2 + ns[nc]
-                                    print(ns[nc],end="")
-                                print(",",end="")
-                        
+                                co = course(courseC,50,stdno,cyearArr[ind])                       
 print("")
 # print(stdarr[1].stdno)
 # for i in range(0,len(yi)):
