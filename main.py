@@ -6,16 +6,19 @@ import csv
 import json
 
 class student:
-    def __init__(self, stdno, name, surname, sex, emplID, Prog):
+    def __init__(self, stdno, name, surname, sex, emplID, Prog, gpa, pyear):
         self.stdno = stdno
         self.name = name
         self.surname = surname
         self.sex = sex
         self.emplID = emplID
         self.Prog = Prog
+        self.gpa = gpa
+        self.pyear = pyear
 class course: 
-    def __init__(self, courseCode, passRate, stdno, year):
+    def __init__(self, courseCode, mark, passRate, stdno, year):
         self.courseCode = courseCode
+        self.mark = mark
         self.passRate = passRate
         self.stdno = stdno
         self.year = year
@@ -25,14 +28,38 @@ stdarr = []
 carr = []
 # Array required for finding out lengths of individual student records
 yi = []
+#Array for storing the core courses for each degree program
+core_ECE = ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
+            "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
+            "EEE3092F","EEE3090F","EEE3088F","EEE3089F","CSC2001F","EEE3096S","EEE3097S",
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+core_ME =  ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
+            "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
+            "EEE3092F","EEE3090F","EEE3088F","MEC2047F","EEE3091F","EEE3096S","MEC2045S","EEE3094S","EEE3099S",
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+core_EE =  ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
+            "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
+            "EEE3092F","EEE3090F","EEE3088F","EEE3089F","EEE3091F","EEE3096S","EEE3094S","EEE3098S","EEE3100S",
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+# Array for Missing Core courses
+missingCoreArr = []
 # Array for storing latest year on transript info
 cyearArr = []
+pyearArr = []
 
 # Required for creating the Dialog Box
 root = tk.Tk()
 root.withdraw()
 file_path = filedialog.askopenfilename()
  
+# Atrributes for students
+surname = ""
+name = ""
+sex = ""
+stdno = ""
+emplID = ""
+prog = ""
+
 # opening the CSV file to find out where everything is
 with open(file_path, mode ='r') as file:   
        # reading the CSV file
@@ -47,7 +74,8 @@ with open(file_path, mode ='r') as file:
             if (fc != 0):
                 if (tl != 0):
                     yi.append(tl)
-                    cyearArr.append(pyear)
+                    pyearArr.append(cyear)
+                    cyearArr.append(cyear)
                     cyear = 0
                     pyear = 0
                     tl = 1
@@ -76,7 +104,8 @@ with open(file_path, mode ='r') as file:
                     tl = tl
             if (x[0] == '{"Report ID:": "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"'):
                 yi.append(tl)
-                cyearArr.append(pyear)
+                pyearArr.append(pyear)
+                cyearArr.append(cyear)
                 tl = 0
             else:
                 tl += 1
@@ -109,48 +138,46 @@ with open(file_path, mode ='r') as file:
                 c += 1
                 l += 1
                 if (l == 2):
-                    if(c > 2):
-                        print("")
+                    # if(c > 2):
+                    #     print("")
                     for c1 in range (0,5):
                         ns = x[c1]
                         if (c1 == 0):
                             surname = ""
                             for nc in range (2, len(ns)):
                                 surname = surname + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
+                            #     print(ns[nc],end="")
+                            # print(",",end="")
                         if (c1 == 1):
                             name = ""
                             for nc in range (0, len(ns)-4):
                                 name = name + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
+                            #     print(ns[nc],end="")
+                            # print(",",end="")
                             sex = ""
                             for nc in range (len(ns)-3,len(ns)-1):
                                 sex = sex + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
+                            #     print(ns[nc],end="")
+                            # print(",",end="")
                         if (c1 == 2):
                             stdno = ""
                             for nc in range (2, len(ns)-1):
                                 stdno = stdno + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
+                            #     print(ns[nc],end="")
+                            # print(",",end="")
                         if (c1 == 3):
                             emplID = ""
                             for nc in range (2, len(ns)-1):
                                 emplID = emplID + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
+                            #     print(ns[nc],end="")
+                            # print(",",end="")
                         if (c1 == 4):
                             prog = ""
                             for nc in range (2, len(ns)-1):
                                 prog = prog + ns[nc]
-                                print(ns[nc],end="")
-                            print(",",end="")
-                    print("")
-                    std = student(stdno,name,surname,sex,emplID,prog)
-                    stdarr.append(std)
+                    #             print(ns[nc],end="")
+                    #         print(",",end="")
+                    # print("")
                 elif (l > 3):
                     for c1 in range (0,10):
                         ns = x[c1]
@@ -163,14 +190,25 @@ with open(file_path, mode ='r') as file:
                             try:
                                 cyear = int(tyear)
                                 #print(cyearArr[ind],cyear)
-                                if (cyear == cyearArr[ind]):
+                                if (cyear < pyearArr[ind]):
                                     read = 1
-                                    ns = x[4]
+                                    ns = x[18]
+                                    spgpa = ""
+                                    for nc in range (2, len(ns)-2):
+                                        spgpa = spgpa + ns[nc]
+                                elif (cyear == pyearArr[ind]):
+                                    read = 1
+                                    ns = x[18]
                                     sgpa = ""
-                                    for nc in range (1, len(ns)-1):
+                                    for nc in range (2, len(ns)-2):
                                         sgpa = sgpa + ns[nc]
-                                    igpa = int(sgpa)
-                                elif(cyear > cyearArr[ind]):
+                                    if (cyear == 2020):
+                                        igpa = float(spgpa)
+                                    else:
+                                        igpa = float(sgpa)
+                                    std = student(stdno,name,surname,sex,emplID,prog,igpa,cyear)
+                                    stdarr.append(std)
+                                else: #elif(cyear > pyearArr[ind]):
                                     read = 0
                                     ind += 1
                             except:
@@ -181,19 +219,50 @@ with open(file_path, mode ='r') as file:
                                 courseC = ""
                                 for nc in range (2, len(ns)-1):
                                     courseC = courseC + ns[nc]
-                                    print(ns[nc],end="")
-                                print(",",end="")
+                                #     print(ns[nc],end="")
+                                # print(",",end="")
                                 ns = x[c1+1]
                                 mark = ""
                                 for nc in range (2, len(ns)-1):
                                     mark = mark + ns[nc]
-                                    print(ns[nc],end="")
-                                print(",",end="")
-                                co = course(courseC,50,stdno,cyearArr[ind])                       
-print("")
-# print(stdarr[1].stdno)
+                                #     print(ns[nc],end="")
+                                # print(",",end="")
+                                co = course(courseC,mark,50,stdno,cyear) 
+                                carr.append(co)                    
+#print("")
+print("Enter the student number of the student to be accessed: ",end="")
+student_no = input()
+stdyear = ""
+for i in range (0,len(stdarr)):
+    if (student_no == stdarr[i].stdno):
+        print("GPA: ",stdarr[i].gpa)
+        stdyear = stdarr[i].pyear
+cpassed = 0
+ctotal = 0
+that_year = 0
+for i in range (0, len(carr)):
+    that_year = carr[i].year
+    if (student_no == carr[i].stdno) and (that_year == stdyear):
+        ctotal += 1
+        if (carr[i].mark == "UP" or carr[i].mark == "PA"):
+            cpassed += 1
+        elif(len(carr[i].mark) == 2):
+            try:
+                mark = int(carr[i].mark)
+                if (mark >= 50):
+                    cpassed += 1
+            except:
+                cpassed = cpassed
+print("Number of courses passed in previous term: ",cpassed)
+print("Number of courses taken in previous term: ",ctotal)
+if (cpassed > 5 and cpassed < 7):
+    print("Recommendation is to take fewer courses each semester. To a maximum of 4 courses eeach semester")
+if (cpassed >= 7):
+    print("No recommendations can proceed unhindered")
+
+# print(stdarr[2].stdno)
 # for i in range(0,len(yi)):
-#     print(yi[i],"",cyearArr[i],end="")
+#     print(yi[i],"",pyearArr[i],"",carr[i].stdno,end="")
 #     print(",",end="")
 # print("")
 
