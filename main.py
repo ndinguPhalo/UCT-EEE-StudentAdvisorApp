@@ -1,5 +1,6 @@
 #from curses import def_shell_mode
 #from re import T
+from pickle import FALSE, TRUE
 import tkinter as tk
 from tkinter import filedialog
 import csv
@@ -229,37 +230,71 @@ with open(file_path, mode ='r') as file:
                                 # print(",",end="")
                                 co = course(courseC,mark,50,stdno,cyear) 
                                 carr.append(co)                    
-#print("")
-print("Enter the student number of the student to be accessed: ",end="")
-student_no = input()
-stdyear = ""
-for i in range (0,len(stdarr)):
-    if (student_no == stdarr[i].stdno):
-        print("GPA: ",stdarr[i].gpa)
-        stdyear = stdarr[i].pyear
-cpassed = 0
-ctotal = 0
-that_year = 0
-for i in range (0, len(carr)):
-    that_year = carr[i].year
-    if (student_no == carr[i].stdno) and (that_year == stdyear):
-        ctotal += 1
-        if (carr[i].mark == "UP" or carr[i].mark == "PA"):
-            cpassed += 1
-        elif(len(carr[i].mark) == 2):
-            try:
-                mark = int(carr[i].mark)
-                if (mark >= 50):
-                    cpassed += 1
-            except:
-                cpassed = cpassed
-print("Number of courses passed in previous term: ",cpassed)
-print("Number of courses taken in previous term: ",ctotal)
-if (cpassed > 5 and cpassed < 7):
-    print("Recommendation is to take fewer courses each semester. To a maximum of 4 courses eeach semester")
-if (cpassed >= 7):
-    print("No recommendations can proceed unhindered")
-
+print("The contents of file chosen have been read!")
+QUIT = FALSE
+while (QUIT == FALSE):
+    print("")
+    print("Enter code for next operation")
+    print("0 - Student Assessment")
+    print("1 - Quit App")
+    print("Enter code: ",end="")
+    val_code = input()
+    if (val_code == "0"):
+        print("Enter the student number of the student to be accessed: ",end="")
+        student_no = input()
+        stdyear = ""
+        prog1 = ""
+        for i in range (0,len(stdarr)):
+            if (student_no == stdarr[i].stdno):
+                print("GPA: ",stdarr[i].gpa)
+                stdyear = stdarr[i].pyear
+                prog1 = stdarr[i].Prog     
+        cpassed = 0
+        ctotal = 0
+        that_year = 0
+        cmissing = []
+        core = FALSE
+        if (stdyear != ""):
+            for i in range (0, len(carr)):
+                that_year = carr[i].year
+                if (student_no == carr[i].stdno) and (that_year == stdyear):
+                    ctotal += 1
+                    if (prog1 == "EB009"):
+                        for k in range (0, len(core_EE)):
+                            if (core_EE[k] == carr[i].courseCode):
+                                core = TRUE
+                                #print(core_EE[k])
+                    if (carr[i].mark == "UP" or carr[i].mark == "PA"):
+                        cpassed += 1
+                    elif(len(carr[i].mark) == 2):
+                        try:
+                            mark = int(carr[i].mark)
+                            if (mark >= 50):
+                                cpassed += 1
+                            else:
+                                if (core == TRUE):
+                                    cmissing.append(carr[i].courseCode)
+                        except:
+                            cpassed = cpassed
+                    else:
+                        if (core == TRUE):
+                            cmissing.append(carr[i].courseCode)
+            print("Number of courses passed in previous term: ",cpassed)
+            print("Number of courses taken in previous term: ",ctotal)
+            if (cpassed > 5 and cpassed < 7):
+                print("Recommendation is to take fewer courses each semester. To a maximum of 4 courses eeach semester")
+            elif (cpassed >= 7):
+                print("No recommendations can proceed unhindered")
+            for l in range (0,len(cmissing)):
+                print(cmissing[l])
+        else:
+            print("")
+            print("Unfortunately this student does not exist")
+    if (val_code == "1"):
+        QUIT = TRUE
+    else:
+        print("That code des not exist, please try again!")
+print("Thank you for using the application")
 # print(stdarr[2].stdno)
 # for i in range(0,len(yi)):
 #     print(yi[i],"",pyearArr[i],"",carr[i].stdno,end="")
