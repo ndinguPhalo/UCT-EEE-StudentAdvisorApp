@@ -1,5 +1,3 @@
-#from curses import def_shell_mode
-#from re import T
 from pickle import FALSE, TRUE
 import tkinter as tk
 from tkinter import filedialog
@@ -33,15 +31,18 @@ yi = []
 core_ECE = ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
             "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
             "EEE3092F","EEE3090F","EEE3088F","EEE3089F","CSC2001F","EEE3096S","EEE3097S",
-            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C",
+            "EEE1000X","EEE3000X"] 
 core_ME =  ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
             "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
             "EEE3092F","EEE3090F","EEE3088F","MEC2047F","EEE3091F","EEE3096S","MEC2045S","EEE3094S","EEE3099S",
-            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C",
+            "EEE1000X","EEE3000X"] 
 core_EE =  ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","PHY1013S","EEE1007S","CSC1016S","AXL1200S",
             "MEC1009F","EEE2045F","EEE2046F","EEE2048F","MAM2083F","EEE2047S","CON2026S","EEE2044S","PHY2010S","MAM2084S",
-            "EEE3092F","EEE3090F","EEE3088F","EEE3089F","EEE3091F","EEE3096S","EEE3094S","EEE3098S","EEE3100S",
-            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C"] 
+            "EEE3092F","EEE3090F","EEE3088F","EEE3089F","EEE3091F","EEE3093S","EEE3094S","EEE3098S","EEE3100S",
+            "EEE4113F","CML4607F","EEE4022S","EEE4124C","EEE4125C",
+            "EEE1000X","EEE3000X"] 
 # Array for Missing Core courses
 missingCoreArr = []
 # Array for storing latest year on transript info
@@ -237,10 +238,10 @@ while (QUIT == FALSE):
     print("Enter code for next operation")
     print("0 - Student Assessment")
     print("1 - Quit App")
-    print("Enter code: ",end="")
+    print("Enter code: ", end="")
     val_code = input()
     if (val_code == "0"):
-        print("Enter the student number of the student to be accessed: ",end="")
+        print("Enter the student number of the student to be accessed: ", end="")
         student_no = input()
         stdyear = ""
         prog1 = ""
@@ -263,7 +264,14 @@ while (QUIT == FALSE):
                         for k in range (0, len(core_EE)):
                             if (core_EE[k] == carr[i].courseCode):
                                 core = TRUE
-                                #print(core_EE[k])
+                    if (prog1 == "EB011"):
+                        for k in range (0, len(core_ME)):
+                            if (core_ME[k] == carr[i].courseCode):
+                                core = TRUE
+                    if (prog1 == "EB022"):
+                        for k in range (0, len(core_ECE)):
+                            if (core_ECE[k] == carr[i].courseCode):
+                                core = TRUE
                     if (carr[i].mark == "UP" or carr[i].mark == "PA"):
                         cpassed += 1
                     elif(len(carr[i].mark) == 2):
@@ -285,12 +293,37 @@ while (QUIT == FALSE):
                 print("Recommendation is to take fewer courses each semester. To a maximum of 4 courses eeach semester")
             elif (cpassed >= 7):
                 print("No recommendations can proceed unhindered")
+            if (prog1 == "EB009"):
+                for lm in range (0, len(core_EE)):
+                    there = FALSE
+                    for ln in range (0, len(carr)):
+                        if (carr[ln].courseCode == core_EE[lm]):
+                            there = TRUE
+                    if (there == FALSE):
+                        cmissing.append(core_EE[lm])
+            elif (prog1 == "EB011"):
+                for lm in range (0, len(core_ME)):
+                    there = FALSE
+                    for ln in range (0, len(carr)):
+                        if (carr[ln].courseCode == core_ME[lm]):
+                            there = TRUE
+                    if (there == FALSE):
+                        cmissing.append(core_ME[lm])
+            elif (prog1 == "EB022"):
+                for lm in range (0, len(core_ECE)):
+                    there = FALSE
+                    for ln in range (0, len(carr)):
+                        if (carr[ln].courseCode == core_ECE[lm]):
+                            there = TRUE
+                    if (there == FALSE):
+                        cmissing.append(core_ECE[lm])
+            print("The core courses yet to be completed for the",prog1,"degree program for",student_no,"are:")
             for l in range (0,len(cmissing)):
                 print(cmissing[l])
         else:
             print("")
             print("Unfortunately this student does not exist")
-    if (val_code == "1"):
+    elif (val_code == "1"):
         QUIT = TRUE
     else:
         print("That code des not exist, please try again!")
