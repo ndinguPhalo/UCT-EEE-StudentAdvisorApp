@@ -54,8 +54,9 @@ core_EE =  ["EEE1006F","MAM1020F","CSC1015F","PHY1012F","MEC1003F","MAM1021S","P
             "EEE1000X","EEE3000X"] 
 # Arrays for optional core courses
 opcore_ECE_3 = ["CSC2002S","EEE3093S","EEE3094S"]
-opcore_ECE3_taken = [""]
+opcore_ECE3_taken = []
 opcore_ECE_4 = ["EEE4114F","EEE4118F","EEE4120F","EEE4121F"]
+opcore_ECE4_taken = []
 opcore_EE_4 = ["EEE4115F","EEE4118F","EEE4121F"]
 opcore_ME_4 = ["EEE4115F","EEE4118F","EEE4119F"]
 # Array for Missing Core courses
@@ -155,7 +156,7 @@ with open(file_path, mode ='r') as file:
                 #print(y[c])
                 c += 1
                 l += 1
-                if (l == 2):
+                if (l == 2): #Goal here is to poplate the variables that will be required to form the student object.
                     # if(c > 2):
                     #     print("")
                     for c1 in range (0,5):
@@ -206,15 +207,15 @@ with open(file_path, mode ='r') as file:
                             for nc in range (2,len(ns)-1):
                                 tyear += ns[nc]
                             try:
-                                cyear = int(tyear)
+                                cyear = int(tyear) #First index of the array should contain a year if its not a year and its a "the following code won't execute"
                                 #print(cyearArr[ind],cyear)
-                                if (cyear < pyearArr[ind]):
+                                if (cyear < pyearArr[ind]): #if the year is before the previous term it creates a GPA in case the previous term has no GPA
                                     read = 1
                                     ns = x[18]
                                     spgpa = ""
                                     for nc in range (2, len(ns)-2):
                                         spgpa = spgpa + ns[nc]
-                                elif (cyear == pyearArr[ind]):
+                                elif (cyear == pyearArr[ind]): #If the year is the previous term then it adds the course and their mark for it
                                     read = 1
                                     ns = x[18]
                                     sgpa = ""
@@ -224,8 +225,8 @@ with open(file_path, mode ='r') as file:
                                         igpa = float(spgpa)
                                     else:
                                         igpa = float(sgpa)
-                                    std = student(stdno,name,surname,sex,emplID,prog,igpa,cyear)
-                                    stdarr.append(std)
+                                    std = student(stdno,name,surname,sex,emplID,prog,igpa,cyear) #Creating student object for student
+                                    stdarr.append(std) #Adding object to student odject array
                                 else: 
                                     read = 0
                                     ind += 1
@@ -271,6 +272,8 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
         cpassed = 0
         ctotal = 0
         that_year = 0
+        opECE3_count = 0
+        opECE4_count = 0
         cmissing = []
         core = FALSE
         cmissing_temp1 = [] # core courses failed initially
@@ -291,6 +294,9 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                             if (core_ME[k] == carr[i].courseCode):
                                 core = TRUE
                     if (prog1 == "EB022"): #If degree program is Electrical and Computer Engineering
+                        # for k in range (0,len(opcore_ECE3_taken)):
+                        #     there = FALSE
+                        #     for l in range (0, len(op))
                         for k in range (0, len(core_ECE)):
                             if (core_ECE[k] == carr[i].courseCode):
                                 core = TRUE
@@ -298,11 +304,29 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                         ctotal += 1
                         if (carr[i].mark == "UP" or carr[i].mark == "PA"): #Student passed a (Supp exam, Prac course, 2020 course) 
                             cpassed += 1
+                            if (prog1 == "EB022"):
+                                for k in range (0,len(opcore_ECE_3)):
+                                    if (carr[i].courseCode == opcore_ECE_3[k]): 
+                                        opcore_ECE3_taken.append(carr[i].courseCode)
+                                        opECE3_count += 1
+                                for k in range (0,len(opcore_ECE_4)):
+                                    if (carr[i].courseCode == opcore_ECE_4[k]): 
+                                        opcore_ECE4_taken.append(carr[i].courseCode)
+                                        opECE4_count += 1
                         elif(len(carr[i].mark) == 2): #Passed conventionally
                             try:
                                 mark = int(carr[i].mark)
                                 if (mark >= 50):
                                     cpassed += 1
+                                    if (prog1 == "EB022"): #To check which of the three optional core ECE courses were taken (previous term)
+                                        for k in range (0,len(opcore_ECE_3)):
+                                            if (carr[i].courseCode == opcore_ECE_3[k]): 
+                                                opcore_ECE3_taken.append(carr[i].courseCode)
+                                                opECE3_count += 1
+                                        for k in range (0,len(opcore_ECE_4)):
+                                            if (carr[i].courseCode == opcore_ECE_4[k]): 
+                                                opcore_ECE4_taken.append(carr[i].courseCode)
+                                                opECE4_count += 1
                                 else:
                                     if (core == TRUE): #If student did not pass core courses done in the previous term then it is added here
                                         cmissing.append(carr[i].courseCode)
@@ -314,6 +338,15 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                     else:
                         if (carr[i].mark == "UP" or carr[i].mark == "PA"): #Student passed a (Supp exam, Prac course, 2020 course) 
                             cpassed = cpassed
+                            if (prog1 == "EB022"): #To check which of the three optional core ECE courses were taken (all terms before previous)
+                                for k in range (0,len(opcore_ECE_3)):
+                                    if (carr[i].courseCode == opcore_ECE_3[k]): 
+                                        opcore_ECE3_taken.append(carr[i].courseCode)
+                                        opECE3_count += 1
+                                for k in range (0,len(opcore_ECE_4)):
+                                    if (carr[i].courseCode == opcore_ECE_4[k]): 
+                                        opcore_ECE4_taken.append(carr[i].courseCode)
+                                        opECE4_count += 1
                             if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
                                 cmissing_temp2.append("MAM1020S")
                                 cmissing_temp2.append(carr[i].courseCode)
@@ -363,6 +396,15 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                                 mark = int(carr[i].mark)
                                 if (mark >= 50):
                                     cpassed = cpassed
+                                    if (prog1 == "EB022"):
+                                        for k in range (0,len(opcore_ECE_3)):
+                                            if (carr[i].courseCode == opcore_ECE_3[k]): 
+                                                opcore_ECE3_taken.append(carr[i].courseCode)
+                                                opECE3_count += 1
+                                        for k in range (0,len(opcore_ECE_4)):
+                                            if (carr[i].courseCode == opcore_ECE_4[k]): 
+                                                opcore_ECE4_taken.append(carr[i].courseCode)
+                                                opECE4_count += 1
                                     if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
                                         cmissing_temp2.append("MAM1020S")
                                         cmissing_temp2.append(carr[i].courseCode)
@@ -415,13 +457,30 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                         else:
                             if (core == TRUE):
                                 cmissing_temp1.append(carr[i].courseCode)
-            for count in range (0,len(cmissing_temp1)):
+            for count in range (0,len(cmissing_temp1)): #This is to check if anything in cmissing 1 is in cmissing 2. If any course failed was evenually passed
                 there = FALSE
                 for count1 in range (0, len(cmissing_temp2)):
                     if (cmissing_temp1[count] == cmissing_temp2[count1]):
                         there = TRUE
                 if (there == FALSE):
                     cmissing.append(cmissing_temp1[count])
+            if (prog1 == "EB022"):
+                if (len(opcore_ECE3_taken) < 2):
+                    for count in range (0,len(opcore_ECE_3)):
+                        there = FALSE
+                        for count1 in range (0, len(opcore_ECE3_taken)):
+                            if (opcore_ECE_3[count] == opcore_ECE3_taken[count1]):
+                                there = TRUE
+                        if (there == FALSE):
+                            cmissing.append(opcore_ECE_3[count])
+                # if (len(opcore_ECE4_taken) < 2):
+                #     for count in range (0,len(opcore_ECE_4)):
+                #         there = FALSE
+                #         for count1 in range (0, len(opcore_ECE4_taken)):
+                #             if (opcore_ECE_4[count] == opcore_ECE4_taken[count1]):
+                #                 there = TRUE
+                #         if (there == FALSE):
+                #             cmissing.append(opcore_ECE_4[count])
             print("Number of courses passed in previous term: ",cpassed)
             print("Number of courses taken in previous term: ",ctotal)
             if (cpassed > 5 and cpassed < 7):
@@ -466,6 +525,13 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                             there = TRUE
                     if (there == FALSE):
                         cmissing.append(core_ECE[lm])
+                for lm in range (0, len(opcore_ECE_4)):
+                    there = FALSE
+                    for ln in range (0, len(carr)):
+                        if (carr[ln].courseCode == opcore_ECE_4[lm]):
+                            there = TRUE
+                    if (there == FALSE):
+                        cmissing.append(opcore_ECE_4[lm])
             print("The core courses yet to be completed for the",prog1,"degree program for",student_no,"are:")
             for l in range (0,len(cmissing)):
                 print(cmissing[l])
@@ -477,5 +543,6 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
     else:
         print("")
         print("That code des not exist, please try again!")
+print("")
 print("Thank you for using the application")
 
