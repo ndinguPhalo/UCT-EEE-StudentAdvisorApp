@@ -14,6 +14,8 @@ N/A
 ## Visuals
 Example inputs and outputs below:
 
+![Opening csv](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/1.png?raw=true "Opening the Student csv")
+
 ## Installation
 - Python 3 required
 - May need the tkinter libarary installed but should not need it.
