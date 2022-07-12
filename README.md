@@ -14,7 +14,7 @@ N/A
 ## Visuals
 Example inputs and outputs below:
 
-![Opening csv](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/1.png?raw=true "Opening the Student csv")
+![Opening csv](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/1.png)
 
 ## Installation
 - Python 3 required
