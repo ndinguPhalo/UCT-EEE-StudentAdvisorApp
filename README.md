@@ -15,8 +15,11 @@ N/A
 Example inputs and outputs below:
 
 ![Opening csv](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/1.png)
+## 
 ![Initial Options](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/2.png)
+## 
 ![Student Assessmet Results](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/3.png)
+## 
 ![Closing the app](https://gitlab.com/lebo_tshangani/stdadvapp/-/blob/main/Example%20Images/4.png)
 
 ## Installation
