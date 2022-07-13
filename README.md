@@ -44,7 +44,7 @@ To be discussed in a Teams meeting
 Main Author - Mr Phalo Mathungana
 
 ## License
-N/A
+Creative Commons v1.0
 
 ## Project status
 Project Status: Pending evaluation and further contribution from the EEE department.
