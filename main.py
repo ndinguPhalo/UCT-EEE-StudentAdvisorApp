@@ -313,6 +313,7 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                                     if (carr[i].courseCode == opcore_ECE_4[k]): 
                                         opcore_ECE4_taken.append(carr[i].courseCode)
                                         opECE4_count += 1
+                            cmissing_temp2.append(carr[i].courseCode)
                         elif(len(carr[i].mark) == 2): #Passed conventionally
                             try:
                                 mark = int(carr[i].mark)
@@ -327,6 +328,7 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                                             if (carr[i].courseCode == opcore_ECE_4[k]): 
                                                 opcore_ECE4_taken.append(carr[i].courseCode)
                                                 opECE4_count += 1
+                                    cmissing_temp2.append(carr[i].courseCode)
                                 else:
                                     if (core == TRUE): #If student did not pass core courses done in the previous term then it is added here
                                         cmissing.append(carr[i].courseCode)
@@ -347,50 +349,50 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                                     if (carr[i].courseCode == opcore_ECE_4[k]): 
                                         opcore_ECE4_taken.append(carr[i].courseCode)
                                         opECE4_count += 1
-                            if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
-                                cmissing_temp2.append("MAM1020S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM1020S"):
-                                cmissing_temp2.append("MAM1020F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM1021S"):
-                                cmissing_temp2.append("MAM1021F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM1021F"):
-                                cmissing_temp2.append("MAM1021S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM2083F"):
-                                cmissing_temp2.append("MAM2083S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM2083S"):
-                                cmissing_temp2.append("MAM2083F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM2084S"):
-                                cmissing_temp2.append("MAM2084F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MAM2084F"):
-                                cmissing_temp2.append("MAM2084S")
-                                cmissing_temp2.append(carr[i].courseCode)                          
-                            elif (carr[i].courseCode == "PHY1012F"): #Physics courses that can be taken as F/S
-                                cmissing_temp2.append("PHY1012S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "PHY1012S"):
-                                cmissing_temp2.append("PHY1012F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "PHY1013S"):
-                                cmissing_temp2.append("PHY1013F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "PHY1013F"):
-                                cmissing_temp2.append("PHY1013S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MEC1009S"): #MEC courses that can be taken as F/S
-                                cmissing_temp2.append("MAM1009F")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            elif (carr[i].courseCode == "MEC1009F"):
-                                cmissing_temp2.append("MEC1009S")
-                                cmissing_temp2.append(carr[i].courseCode)
-                            else:
-                                cmissing_temp2.append(carr[i].courseCode)
+                            # if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
+                            #     cmissing_temp2.append("MAM1020S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM1020S"):
+                            #     cmissing_temp2.append("MAM1020F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM1021S"):
+                            #     cmissing_temp2.append("MAM1021F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM1021F"):
+                            #     cmissing_temp2.append("MAM1021S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM2083F"):
+                            #     cmissing_temp2.append("MAM2083S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM2083S"):
+                            #     cmissing_temp2.append("MAM2083F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM2084S"):
+                            #     cmissing_temp2.append("MAM2084F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MAM2084F"):
+                            #     cmissing_temp2.append("MAM2084S")
+                            #     cmissing_temp2.append(carr[i].courseCode)                          
+                            # elif (carr[i].courseCode == "PHY1012F"): #Physics courses that can be taken as F/S
+                            #     cmissing_temp2.append("PHY1012S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "PHY1012S"):
+                            #     cmissing_temp2.append("PHY1012F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "PHY1013S"):
+                            #     cmissing_temp2.append("PHY1013F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "PHY1013F"):
+                            #     cmissing_temp2.append("PHY1013S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MEC1009S"): #MEC courses that can be taken as F/S
+                            #     cmissing_temp2.append("MAM1009F")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # elif (carr[i].courseCode == "MEC1009F"):
+                            #     cmissing_temp2.append("MEC1009S")
+                            #     cmissing_temp2.append(carr[i].courseCode)
+                            # else:
+                            cmissing_temp2.append(carr[i].courseCode)
                         elif(len(carr[i].mark) == 2): #Passed conventionally
                             try:
                                 mark = int(carr[i].mark)
@@ -405,50 +407,50 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                                             if (carr[i].courseCode == opcore_ECE_4[k]): 
                                                 opcore_ECE4_taken.append(carr[i].courseCode)
                                                 opECE4_count += 1
-                                    if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
-                                        cmissing_temp2.append("MAM1020S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM1020S"):
-                                        cmissing_temp2.append("MAM1020F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM1021S"):
-                                        cmissing_temp2.append("MAM1021F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM1021F"):
-                                        cmissing_temp2.append("MAM1021S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM2083F"):
-                                        cmissing_temp2.append("MAM2083S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM2083S"):
-                                        cmissing_temp2.append("MAM2083F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM2084S"):
-                                        cmissing_temp2.append("MAM2084F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MAM2084F"):
-                                        cmissing_temp2.append("MAM2084S")
-                                        cmissing_temp2.append(carr[i].courseCode)                          
-                                    elif (carr[i].courseCode == "PHY1012F"): #Physics courses that can be taken as F/S
-                                        cmissing_temp2.append("PHY1012S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "PHY1012S"):
-                                        cmissing_temp2.append("PHY1012F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "PHY1013S"):
-                                        cmissing_temp2.append("PHY1013F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "PHY1013F"):
-                                        cmissing_temp2.append("PHY1013S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MEC1009S"): #MEC courses that can be taken as F/S
-                                        cmissing_temp2.append("MEC1009F")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    elif (carr[i].courseCode == "MEC1009F"):
-                                        cmissing_temp2.append("MEC1009S")
-                                        cmissing_temp2.append(carr[i].courseCode)
-                                    else:
-                                        cmissing_temp2.append(carr[i].courseCode)
+                                    # if (carr[i].courseCode == "MAM1020F"): #Maths courses that can be taken as F/S
+                                    #     cmissing_temp2.append("MAM1020S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM1020S"):
+                                    #     cmissing_temp2.append("MAM1020F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM1021S"):
+                                    #     cmissing_temp2.append("MAM1021F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM1021F"):
+                                    #     cmissing_temp2.append("MAM1021S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM2083F"):
+                                    #     cmissing_temp2.append("MAM2083S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM2083S"):
+                                    #     cmissing_temp2.append("MAM2083F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM2084S"):
+                                    #     cmissing_temp2.append("MAM2084F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MAM2084F"):
+                                    #     cmissing_temp2.append("MAM2084S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)                          
+                                    # elif (carr[i].courseCode == "PHY1012F"): #Physics courses that can be taken as F/S
+                                    #     cmissing_temp2.append("PHY1012S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "PHY1012S"):
+                                    #     cmissing_temp2.append("PHY1012F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "PHY1013S"):
+                                    #     cmissing_temp2.append("PHY1013F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "PHY1013F"):
+                                    #     cmissing_temp2.append("PHY1013S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MEC1009S"): #MEC courses that can be taken as F/S
+                                    #     cmissing_temp2.append("MEC1009F")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # elif (carr[i].courseCode == "MEC1009F"):
+                                    #     cmissing_temp2.append("MEC1009S")
+                                    #     cmissing_temp2.append(carr[i].courseCode)
+                                    # else:
+                                    cmissing_temp2.append(carr[i].courseCode)
                                 else:
                                     if (core == TRUE): #If student did not pass core courses done in the previous term then it is added here
                                         cmissing_temp1.append(carr[i].courseCode)
@@ -457,6 +459,78 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                         else:
                             if (core == TRUE):
                                 cmissing_temp1.append(carr[i].courseCode)
+            for count in range (0,len(cmissing_temp2)):
+                cc2 = ""
+                for count1 in range (0,len(cmissing_temp2[count])-1):
+                    cc2 += cmissing_temp2[count][count1]
+                if (cc2 == "MAM1020" or cc2 == "END1020" or cc2 == "END1007"): #First Year Courses
+                    cmissing_temp2.append("MAM1020F")
+                elif (cc2 == "MAM1021" or cc2 == "END1021" or cc2 == "END1007"):
+                    cmissing_temp2.append("MAM1021S")
+                elif (cc2 == "EEE1006" or cc2 == "EEE1004" or cc2 == "EEE1005"):
+                    cmissing_temp2.append("EEE1006F")
+                elif (cc2 == "EEE1007" or cc2 == "EEE1005" or cc2 == "EEE2026"):
+                    cmissing_temp2.append("EEE1007S")
+                elif (cc2 == "PHY1012" or cc2 == "PHY1014" or cc2 == "PHY1011"):
+                    cmissing_temp2.append("PHY1012F")
+                elif (cc2 == "PHY1013" or cc2 == "PHY1015" or cc2 == "PHY1011"):
+                    cmissing_temp2.append("PHY1013S")
+                elif (cc2 == "CSC1015"):
+                    cmissing_temp2.append("CSC1015F")
+                elif (cc2 == "AXL1200" or cc2 == "SLL1022"):
+                    cmissing_temp2.append("AXL1200S")
+                elif (cc2 == "EEE2045" or cc2 == "EEE2042" or cc2 == "EEE2026"): #Second Year Courses
+                    cmissing_temp2.append("EEE2045F")
+                elif (cc2 == "EEE2046" or cc2 == "EEE2026"):
+                    cmissing_temp2.append("EEE2046F")
+                elif (cc2 == "EEE2048" or cc2 == "EEE3073"):
+                    cmissing_temp2.append("EEE2048F")
+                elif (cc2 == "MEC1009" or cc2 == "EEE2026"):
+                    cmissing_temp2.append("MEC1009F")
+                elif (cc2 == "PHY2010" or cc2 == "EEE2031" or cc2 == "PHY1011"):
+                    cmissing_temp2.append("PHY2010S")
+                elif (cc2 == "MEC2026" or cc2 == "CON2026"):
+                    cmissing_temp2.append("CON2026S")
+                elif (cc2 == "MAM2084"):
+                    cmissing_temp2.append("MAM2084S")
+                elif (cc2 == "MAM2083"):
+                    cmissing_temp2.append("MAM2083F")
+                elif (cc2 == "EEE2044" or cc2 == "EEE2026"):
+                    cmissing_temp2.append("EEE2044S")
+                elif (cc2 == "EEE2047" or cc2 == "EEE2035"):
+                    cmissing_temp2.append("EEE2047S")       
+                elif (cc2 == "EEE3088" or cc2 == "EEE4113"): #Third Year Courses
+                    cmissing_temp2.append("EEE3088F") 
+                elif (cc2 == "EEE3097" or cc2 == "EEE4113"):
+                    cmissing_temp2.append("EEE3097S") 
+                elif (cc2 == "EEE3096" or cc2 == "EEE3095" or cc2 == "EEE3064"):
+                    cmissing_temp2.append("EEE3096S")
+                elif (cc2 == "CSC2002" or cc2 == "AST2002" or cc2 == "END1019"):
+                    cmissing_temp2.append("CSC2002S")
+                elif (cc2 == "EEE3093" or cc2 == "EEE3063"):
+                    cmissing_temp2.append("EEE3093S") 
+                elif (cc2 == "EEE3094" or cc2 == "EEE3082"):
+                    cmissing_temp2.append("EEE3094S") 
+                elif (cc2 == "EEE4113" or cc2 == "EEE4036"): #Fourth Year Courses
+                    cmissing_temp2.append("EEE4113F") 
+                elif (cc2 == "CML4607" or cc2 == "MEC4022"):
+                    cmissing_temp2.append("CML4607F") 
+                elif (cc2 == "EEE4022"):
+                    cmissing_temp2.append("EEE4022S") 
+                elif (cc2 == "EEE4120" or cc2 == "MEC4087"):
+                    cmissing_temp2.append("EEE4120F") 
+            there = FALSE
+            there1 = FALSE
+            there2 = FALSE
+            for count in range (0,len(cmissing_temp2)): #This is to check if EEE4006C or EEE4051 were both done or EEE4125C
+                if (cmissing_temp2[count] == "EEE4125C"):
+                    there = TRUE
+                if (cmissing_temp2[count] == "EEE4006C"):
+                    there1 = TRUE
+                if (cmissing_temp2[count] == "EEE4051C"):
+                    there2 = TRUE
+            if (there == TRUE or (there1 == TRUE and there2 == TRUE)):
+                cmissing_temp2.append("EEE4125C")
             for count in range (0,len(cmissing_temp1)): #This is to check if anything in cmissing 1 is in cmissing 2. If any course failed was evenually passed
                 there = FALSE
                 for count1 in range (0, len(cmissing_temp2)):
@@ -493,12 +567,18 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == core_EE[lm]):
                             there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == core_EE[lm]):
+                            there = TRUE
                     if (there == FALSE):
                         cmissing.append(core_EE[lm])
                 for lm in range (0, len(opcore_EE_4)):
                     there = FALSE
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == opcore_EE_4[lm]):
+                            there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == opcore_EE_4[lm]):
                             there = TRUE
                     if (there == FALSE):
                         cmissing.append(opcore_EE_4[lm])
@@ -508,12 +588,18 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == core_ME[lm]):
                             there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == core_ME[lm]):
+                            there = TRUE
                     if (there == FALSE):
                         cmissing.append(core_ME[lm])
                 for lm in range (0, len(opcore_ME_4)):
                     there = FALSE
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == opcore_ME_4[lm]):
+                            there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == opcore_ME_4[lm]):
                             there = TRUE
                     if (there == FALSE):
                         cmissing.append(opcore_ME_4[lm])
@@ -523,12 +609,18 @@ while (QUIT == FALSE): #Program Loop which only ends when key 1 is entered.
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == core_ECE[lm]):
                             there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == core_ECE[lm]):
+                            there = TRUE
                     if (there == FALSE):
                         cmissing.append(core_ECE[lm])
                 for lm in range (0, len(opcore_ECE_4)):
                     there = FALSE
                     for ln in range (0, len(carr)):
                         if (carr[ln].courseCode == opcore_ECE_4[lm]):
+                            there = TRUE
+                    for ln in range (0, len(cmissing_temp2)):
+                        if (cmissing_temp2[ln] == opcore_ECE_4[lm]):
                             there = TRUE
                     if (there == FALSE):
                         cmissing.append(opcore_ECE_4[lm])
